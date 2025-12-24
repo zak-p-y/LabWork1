@@ -1,4 +1,4 @@
-#include "BMP.hpp"
+#include "BMP.h"
 #include <fstream>
 
 const std::string BMP::STANDARD = "BM";
@@ -19,7 +19,6 @@ RasterImage BMP::load(const std::filesystem::path& imagePath)
     inputFile.read(reinterpret_cast<char*>(&fileHeader), HEADER_SIZE);
     inputFile.read(reinterpret_cast<char*>(&infoHeader), INFORMATION_SIZE);
 
-    // Skipping empty bytes up to start of raw pixel data.
     inputFile.seekg(fileHeader.data_offset, std::ios::beg);
 
     RasterImage resultImage(infoHeader.width, infoHeader.height);
@@ -55,5 +54,45 @@ void BMP::save(const std::filesystem::path& outputPath, const Image& image)
         throw std::runtime_error("Could not open file for writing: " + outputPath.string());
     }
 
-    int imgWidth = image.getWidth();
-   
+    int w = image.width();
+    int h = image.height();
+    int padding = getPaddingSize(w);
+
+    BMPFileHeader fHeader;
+    fHeader.file_type = 0x4D42; // "BM"
+    fHeader.file_size = HEADER_SIZE + INFORMATION_SIZE + (3 * w + padding) * h;
+    fHeader.reserved1 = 0;
+    fHeader.reserved2 = 0;
+    fHeader.data_offset = HEADER_SIZE + INFORMATION_SIZE;
+
+    BMPInfoHeader iHeader;
+    iHeader.size = INFORMATION_SIZE;
+    iHeader.width = w;
+    iHeader.height = h;
+    iHeader.planes = 1;
+    iHeader.bpp = 24;
+    iHeader.compression = 0;
+    iHeader.image_size = (3 * w + padding) * h;
+    iHeader.x_pixels_per_meter = 0;
+    iHeader.y_pixels_per_meter = 0;
+    iHeader.colors_used = 0;
+    iHeader.colors_important = 0;
+
+    outputFile.write(reinterpret_cast<const char*>(&fHeader), HEADER_SIZE);
+    outputFile.write(reinterpret_cast<const char*>(&iHeader), INFORMATION_SIZE);
+
+    for (int y = 0; y < h; ++y)
+    {
+        for (int x = 0; x < w; ++x)
+        {
+            ColorRGB color = image.pixel(x, h - 1 - y);
+            outputFile.put(static_cast<char>(color.blue));
+            outputFile.put(static_cast<char>(color.green));
+            outputFile.put(static_cast<char>(color.red));
+        }
+        for (int p = 0; p < padding; ++p)
+        {
+            outputFile.put(0);
+        }
+    }
+} 

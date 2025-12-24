@@ -1,8 +1,8 @@
 #ifndef BMPIMAGE_HPP
 #define BMPIMAGE_HPP
 
-#include "RasterImage.hpp"
-#include "Image.hpp"
+#include "RasterImage.h"
+#include "Image.h"
 #include <filesystem>
 #include <string>
 #include <cstdint>
@@ -22,7 +22,6 @@ private:
 public:
     static RasterImage load(const std::filesystem::path& imagePath);
 
-    // Using more general abstraction to Image.
     static void save(const std::filesystem::path& outputPath, const Image& image);
 };
 
@@ -39,7 +38,7 @@ struct BMPFileHeader
 
 struct BMPInfoHeader
 {
-    uint32_t size;       
+    uint32_t size;
     int32_t width;       
     int32_t height;      
     uint16_t planes;     
