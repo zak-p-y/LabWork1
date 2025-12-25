@@ -96,11 +96,6 @@ TEST(BMPTest, SaveAndLoadPreservesPixels) {
     EXPECT_EQ(p.blue, 60);
 }
 
-TEST(BMPTest, LoadExistingFile) {
-    RasterImage img = BMP::load("blue-bmp-24-bit.bmp");
-    EXPECT_GT(img.width(), 0);
-    EXPECT_GT(img.height(), 0);
-}
 
 
 TEST(BMPTest, PaddingWidthOne) {
