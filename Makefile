@@ -8,11 +8,11 @@ CORE_OBJS = $(CORE_IMPL:.cpp=.o)
 APP_SRC = main.cpp
 APP_OBJ = main.o
 
-TEST_IMPL = tests/Images.cpp tests/BMP.cpp tests/ImageProcessor.cpp
+TEST_IMPL = tests/test.cpp
 TEST_OBJS = $(TEST_IMPL:.cpp=.o)
 
-APP_TARGET = bmpImageProcessor
-TEST_TARGET = run_tests
+APP_TARGET = img_procc
+TEST_TARGET = test
 
 .PHONY: all clean
 
