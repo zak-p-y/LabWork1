@@ -1,3 +1,9 @@
+/*
+* Pavel Zak
+* st142062@student.spbu.ru
+LabWork1
+*/
+
 #ifndef BMPIMAGE_HPP
 #define BMPIMAGE_HPP
 

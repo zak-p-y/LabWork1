@@ -1,3 +1,10 @@
+/*
+* Pavel Zak
+* st142062@student.spbu.ru
+LabWork1
+*/
+
+
 #ifndef IMG_PROCESSOR_HPP
 #define IMG_PROCESSOR_HPP
 

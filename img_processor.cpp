@@ -1,3 +1,8 @@
+/*
+* Pavel Zak
+* st142062@student.spbu.ru
+LabWork1
+*/
 #include "img_processor.h"
 #include <algorithm>
 #include <cstdint>

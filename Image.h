@@ -1,3 +1,10 @@
+/*
+* Pavel Zak
+* st142062@student.spbu.ru
+LabWork1
+*/
+
+
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
 
