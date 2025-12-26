@@ -78,7 +78,7 @@ void BMP::save(const std::filesystem::path& outputPath, const Image& image)
     iHeader.planes = 1;
     iHeader.bpp = 24;
     iHeader.compression = 0;
-    iHeader.image_size = (3 * w + padding) * h;
+    iHeader.image_size = ((iHeader.bpp / 8)  * w + padding) * h;
     iHeader.x_pixels_per_meter = 0;
     iHeader.y_pixels_per_meter = 0;
     iHeader.colors_used = 0;
